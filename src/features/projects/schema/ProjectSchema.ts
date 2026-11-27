@@ -20,10 +20,11 @@ export const ProjectSchema = z
     priority: z.enum(["Low", "Medium", "High", "Critical"]),
 
     status: z.enum([
-      "Not Started",
+      "Pending",
       "In Progress",
       "Completed",
       "On Hold",
+      "Cancelled",
     ]),
 
     teams: z.array(z.number()).min(1, "Select at least one team"),

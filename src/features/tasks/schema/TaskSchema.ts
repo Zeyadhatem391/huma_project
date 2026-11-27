@@ -23,7 +23,7 @@ export const TaskSchema = z.object({
     message: "Please select a priority",
   }),
 
-  status: z.enum(["Pending", "In Progress", "Completed", "Cancelled"], {
+  status: z.enum(["Pending", "In Progress", "Completed", "In Review"], {
     message: "Please select a status",
   }),
 

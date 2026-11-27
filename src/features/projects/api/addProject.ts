@@ -32,5 +32,5 @@ export default async function addProject(
         );
     }
 
-    return result.data;
+    return result;
 }

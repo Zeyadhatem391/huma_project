@@ -42,17 +42,11 @@ export default function RegisterForm() {
   const onSubmit = async (data: RegisterInput) => {
     try {
       const response = await registerUser({
-        content: {
-          "application/json": {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            password_confirmation: data.password,
-          },
-        },
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        password_confirmation: data.password,
       });
-
-      console.log(data);
 
       Cookies.set("token", response.data.token, {
         expires: 7,
@@ -78,10 +72,10 @@ export default function RegisterForm() {
 
       router.push("/");
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Something went wrong";
-
-      toast.error(message);
+     
+      toast.error(
+        error instanceof Error ? error.message : "Something went wrong",
+      );
     }
   };
 

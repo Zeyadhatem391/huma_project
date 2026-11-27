@@ -71,36 +71,44 @@ export default function AddProject() {
       members: [],
     },
   });
+ const onInvalid = () => {
+  console.log("Form Validation Errors:", errors);
+  toast.error("Please check the form fields.");
+};
 
-  const onSubmit = async (data: AddProjectOutput) => {
-    try {
-      const result = {
-        ...data,
-        description: data.description ?? "",
-      };
+const onSubmit = async (data: AddProjectOutput) => {
+  try {
+    console.log("Form Data:", data);
 
-      await addProject(result);
+    const result = {
+      ...data,
+      description: data.description ?? "",
+    };
 
-      toast.success("Project created successfully");
+    console.log("Request Payload:", result);
 
-      await queryClient.invalidateQueries({
-        queryKey: ["projects"],
-      });
+    const response = await addProject(result);
 
-      reset();
-      setOpen(false);
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.error(
-          error.message === "This action is unauthorized."
-            ? "You don't have permission to create projects."
-            : error.message,
-        );
-      } else {
-        toast.error("Something went wrong. Please try again.");
-      }
-    }
-  };
+    console.log("API Response:", response);
+
+    toast.success("Project created successfully");
+
+    await queryClient.invalidateQueries({
+      queryKey: ["projects"],
+    });
+
+    reset();
+    setOpen(false);
+  } catch (error) {
+    console.error("Create Project Error:", error);
+
+    toast.error(
+      error instanceof Error
+        ? error.message
+        : "Something went wrong. Please try again."
+    );
+  }
+};
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -116,7 +124,8 @@ export default function AddProject() {
           <DialogTitle className="text-xl font-bold">New Project</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit,onInvalid)} 
+         className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-2">
               <Label htmlFor="name">Project Name</Label>
