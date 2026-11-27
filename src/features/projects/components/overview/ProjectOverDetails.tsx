@@ -1,6 +1,6 @@
 import { formatDateTask } from "@/shared/utils/formatDate";
-import { ProjectOverview } from "../../types/project";
 import { CalendarDays, Flag, ListTodo, TimerOff } from "lucide-react";
+import { ProjectOverview } from "../../api/getProjectOverview";
 
 export default function ProjectOverDetails({
   project,

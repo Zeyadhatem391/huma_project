@@ -1,7 +1,5 @@
-import React from 'react'
-
 export default function TasksProfile() {
   return (
-    <div>TasksProfile</div>
-  )
+    <p className="py-5 text-center text-sm text-gray-500">No tasks found.</p>
+  );
 }

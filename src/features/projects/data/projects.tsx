@@ -1,29 +1,28 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { formatDate } from "@/shared/utils/formatDate";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { File } from "lucide-react";
-import { Project } from "../types/project";
+import { Briefcase, File, Pencil } from "lucide-react";
+import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch-link";
+import DeleteProjectButton from "../components/DeleteProjectButton";
+import {
+  Priority,
+  priorityStyles,
+  ProjectStatus,
+  statusStyles,
+} from "@/shared/types/types";
+import { Projects } from "../api/getAllProjects";
 
-export type ProjectPriority = "low" | "medium" | "high";
-export type ProjectStatus = "active" | "done";
-
-const statusStyles: Record<Project["status"], string> = {
-  active: "text-pink-700",
-  done: "text-green-700",
-};
-
-const priorityStyles: Record<Project["priority"], string> = {
-  low: "text-gray-700",
-  medium: "text-orange-700",
-  high: "text-red-700",
-};
-
-export const projectColumns: ColumnDef<Project>[] = [
+export const projectColumns: ColumnDef<Projects>[] = [
   {
     accessorKey: "name",
     header: "Project Name",
     cell: ({ row }) => (
-      <p className="font-medium text-base capitalize">{row.original.name}</p>
+      <div className="flex items-center gap-2">
+        <div className="bg-purple-200 p-2 rounded-full text-purple-600">
+          <Briefcase size={20} />
+        </div>
+        <p className="font-medium text-base capitalize">{row.original.name}</p>
+      </div>
     ),
   },
   {
@@ -50,7 +49,7 @@ export const projectColumns: ColumnDef<Project>[] = [
 
       return (
         <span
-          className={`rounded-full px-3 py-1 text-sm font-medium capitalize ${statusStyles[status]}`}
+          className={`rounded-full px-3 py-1 text-sm font-medium capitalize ${statusStyles[status as ProjectStatus]}`}
         >
           {status.replace("-", " ")}
         </span>
@@ -109,10 +108,36 @@ export const projectColumns: ColumnDef<Project>[] = [
 
       return (
         <span
-          className={`rounded-full px-3 py-1 text-sm font-medium capitalize ${priorityStyles[priority]}`}
+          className={`rounded-full px-3 py-1 text-sm font-medium capitalize ${
+            priorityStyles[priority as Priority]
+          }`}
         >
           {priority}
         </span>
+      );
+    },
+  },
+
+  {
+    id: "actions",
+    header: "ACTIONS",
+    cell: ({ row }) => {
+      const action = row.original;
+
+      return (
+        <div
+          className="flex items-center gap-2.5"
+          onClick={(e) => e.stopPropagation()}
+          onMouseDown={(e) => e.stopPropagation()}
+        >
+          <HoverPrefetchLink href={`/dashboard/projects/${action.id}/update`}>
+            <button className="cursor-pointer rounded-md text-blue-500">
+              <Pencil size={15} />
+            </button>
+          </HoverPrefetchLink>
+
+          <DeleteProjectButton projectId={action.id} />
+        </div>
       );
     },
   },
@@ -126,5 +151,3 @@ export const tabs = [
 ] as const;
 
 export type Tab = (typeof tabs)[number]["id"];
-
-

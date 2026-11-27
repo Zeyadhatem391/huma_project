@@ -1,7 +1,7 @@
 "use client";
 
 import useProjectTeam from "../../hook/useProjectTeam";
-import ProjectTeamsSkeleton from "../../skeletons/ProjectTeamsSkeleton";
+import ProjectTeamsSkeleton from "../../../../shared/skeleton/ProjectTeamsSkeleton";
 import ProjectTeamCard from "./ProjectTeamCard";
 
 export default function ProjectTeams({ id }: { id: number }) {
@@ -28,7 +28,7 @@ export default function ProjectTeams({ id }: { id: number }) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4 items-start">
       {teams.map((team) => (
         <ProjectTeamCard key={team.id} team={team} />
       ))}

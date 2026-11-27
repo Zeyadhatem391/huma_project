@@ -1,4 +1,4 @@
-import { ProjectOverview } from "../../types/project";
+import { ProjectOverview } from "../../api/getProjectOverview";
 import GrowthChart from "./GrowthChart";
 
 function ProjectCharts({ project }: { project: ProjectOverview }) {

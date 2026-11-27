@@ -2,20 +2,37 @@
 
 import { useEffect, useState } from "react";
 import AddProject from "@/features/projects/components/AddProject";
-import FilterProject from "@/features/projects/components/FilterProject";
-import SearchProject from "@/features/projects/components/SearchProject";
 import TableProjects from "@/features/projects/components/TableProjects";
 import useGetAllProjects from "@/features/projects/hook/useGetAllProjects";
 import Cookies from "js-cookie";
+import { useQueryState } from "nuqs";
+import SearchProject from "@/features/projects/components/SearchProject";
+import FilterProject from "@/features/projects/components/FilterProject";
 
 export default function Page() {
-  const { data, isLoading, isError, error } = useGetAllProjects();
+  const [status] = useQueryState("status", {
+    defaultValue: "all",
+  });
 
-  const [isTeamMember, setIsTeamMember] = useState(false);
+  const [priority] = useQueryState("priority", {
+    defaultValue: "all",
+  });
+
+  const [search] = useQueryState("search", {
+    defaultValue: "",
+  });
+
+  const { data, isLoading, isError, error } = useGetAllProjects({
+    status,
+    priority,
+    search,
+  });
+
+  const [isAdministrator, setIsAdministrator] = useState(false);
 
   useEffect(() => {
     const roles = JSON.parse(Cookies.get("roles") || "[]");
-    setIsTeamMember(roles.includes("Team Member"));
+    setIsAdministrator(roles.includes("Administrator"));
   }, []);
 
   const projects = data?.data.data ?? [];
@@ -25,11 +42,12 @@ export default function Page() {
       <div className="flex justify-between items-center">
         <h1 className="font-bold text-3xl">All Projects</h1>
 
-        {!isTeamMember && <AddProject />}
+        {isAdministrator && <AddProject />}
       </div>
 
       <div className="flex justify-between items-center">
         <SearchProject />
+
         <FilterProject />
       </div>
 

@@ -1,11 +1,10 @@
-import { DashboardTeams } from "../types/home";
+import { scrollbarClass } from "@/shared/utils/scrollbar";
+import { DashboardTeams } from "../api/getAllDataDashboard";
 
 export default function DashboardTeamsCard({ data }: { data: DashboardTeams }) {
-  const teams = data.items.slice(0, 5);
-
   return (
-    <div className="space-y-4 rounded-2xl border bg-white p-5 shadow-sm">
-      <div className="space-y-3">
+    <div className="group space-y-4 rounded-2xl border bg-white py-5 pl-5 shadow-sm">
+      <div className="space-y-3 pr-5">
         <h2 className="text-xl font-bold text-gray-900">Teams</h2>
 
         <div className="flex items-center justify-between px-1 text-sm font-semibold text-gray-800">
@@ -14,8 +13,8 @@ export default function DashboardTeamsCard({ data }: { data: DashboardTeams }) {
         </div>
       </div>
 
-      <div className="space-y-4">
-        {teams.map((team) => {
+      <div className={`mr-1.5 h-[264px] space-y-4 pr-2 ${scrollbarClass}`}>
+        {data.items.map((team) => {
           const percentage =
             team.members_count > 0
               ? Math.min(

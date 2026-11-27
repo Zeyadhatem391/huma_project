@@ -44,7 +44,7 @@ export default function DataTable<TData extends { id: number | string }>({
             {headerGroup.headers.map((header) => (
               <TableHead
                 key={header.id}
-                className="px-6 py-5 font-semibold text-lg uppercase"
+                className="px-6 py-5 font-semibold text-lg "
               >
                 {header.isPlaceholder
                   ? null

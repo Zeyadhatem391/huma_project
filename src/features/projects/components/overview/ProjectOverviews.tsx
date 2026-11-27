@@ -1,8 +1,8 @@
-import { ProjectOverview } from "../../types/project";
 import ProjectCharts from "./ProjectCharts";
 import ProjectProgress from "./ProjectProgress";
 import ProjectOverTeams from "./ProjectOverTeams";
 import ProjectOverDetails from "./ProjectOverDetails";
+import { ProjectOverview } from "../../api/getProjectOverview";
 
 export default function ProjectOverviews({
   project,

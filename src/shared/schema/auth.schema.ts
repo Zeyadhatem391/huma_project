@@ -19,6 +19,7 @@ const name = z
 export const LoginSchema = z.object({
     email,
     password,
+    remember: z.boolean(),
 });
 
 export const RegisterSchema = z
@@ -26,7 +27,7 @@ export const RegisterSchema = z
         name,
         email,
         password,
-
+        remember: z.boolean(),
     })
 
 

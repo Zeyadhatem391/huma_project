@@ -1,26 +1,13 @@
 
+import { paths } from "@/schema/api";
 import Cookies from "js-cookie";
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export interface Team {
-  id: number;
-  name: string;
-  description?: string;
-  created_at?: string;
-  updated_at?: string;
-}
 
-export interface GetTeamsResponse {
-  success: boolean;
-  message: string;
-  data: {
-    data: Team[];
-  };
-}
+export type TeamsResponse = paths["/api/v1/teams"]["get"]["responses"]["200"]["content"]["application/json"]
 
-
-export default async function getTeams(): Promise<GetTeamsResponse> {
+export default async function getTeams(): Promise<TeamsResponse> {
   const token = Cookies.get("token");
 
   const response = await fetch(`${API_URL}/api/v1/teams`, {

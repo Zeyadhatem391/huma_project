@@ -1,6 +1,7 @@
 "use client";
 import { ReactNode } from "react";
 import QueryProvider from "./QueryProvider";
+import { NuqsAdapter } from "nuqs/adapters/next";
 
 interface Props {
   children: ReactNode;
@@ -9,7 +10,9 @@ interface Props {
 export default function AppProviders({ children }: Props) {
   return (
     <>
-      <QueryProvider>{children}</QueryProvider>
+      <QueryProvider>
+        <NuqsAdapter>{children}</NuqsAdapter>
+      </QueryProvider>
     </>
   );
 }

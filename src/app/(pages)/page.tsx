@@ -9,7 +9,7 @@ import DashboardTeamsCard from "@/features/home/components/DashboardTeamsCard";
 import RecentFilesCard from "@/features/home/components/RecentFilesCard";
 import UpcomingMeetingCard from "@/features/home/components/UpcomingMeetingCard";
 import useDashboard from "@/features/home/hooks/useDashboard";
-import DashboardSkeleton from "@/features/home/skeletons/DashboardSkeleton";
+import DashboardSkeleton from "@/shared/skeleton/DashboardSkeleton";
 
 export default function Home() {
   const { data, isLoading, isError, error } = useDashboard();

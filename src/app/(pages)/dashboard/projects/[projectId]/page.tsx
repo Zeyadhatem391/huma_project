@@ -2,7 +2,7 @@
 
 import TabsProject from "@/features/projects/components/TabsProject";
 import useProjectOverview from "@/features/projects/hook/useProjectOverview";
-import ProjectOverviewSkeleton from "@/features/projects/skeletons/ProjectOverviewSkeleton";
+import ProjectOverviewSkeleton from "@/shared/skeleton/ProjectOverviewSkeleton";
 import { formatDateTask } from "@/shared/utils/formatDate";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";

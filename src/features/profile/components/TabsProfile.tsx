@@ -5,9 +5,14 @@ import { useState } from "react";
 import OverviewProfile from "./OverviewProfile";
 import TasksProfile from "./TasksProfile";
 import FilesProfile from "./FilesProfile";
-import { Tab, tabs } from "../data/profile";
+import { ProfileResponse } from "../api/getProfile";
+import { Tab, tabs } from "@/shared/types/types";
 
-export default function TabsProfile() {
+export default function TabsProfile({
+  profile,
+}: {
+  profile?: ProfileResponse["data"];
+}) {
   const [activeTab, setActiveTab] = useState<Tab>("overview");
 
   return (
@@ -36,7 +41,7 @@ export default function TabsProfile() {
       </div>
 
       <div>
-        {activeTab === "overview" && <OverviewProfile />}
+        {activeTab === "overview" && <OverviewProfile profile={profile}/>}
         {activeTab === "tasks" && <TasksProfile />}
         {activeTab === "files" && <FilesProfile />}
       </div>
