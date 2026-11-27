@@ -7,6 +7,7 @@ import FilterTask from "@/features/tasks/components/FilterTask";
 
 import { useEffect, useState, Suspense } from "react";
 import Cookies from "js-cookie";
+import KanbanBoardSkeleton from "@/shared/skeleton/KanbanBoardSkeleton";
 
 export default function Page() {
   const [isAdministrator, setIsAdministrator] = useState(false);
@@ -29,7 +30,9 @@ export default function Page() {
         </div>
       </Suspense>
 
-      <TaskStatus />
+      <Suspense fallback={<KanbanBoardSkeleton />}>
+        <TaskStatus />
+      </Suspense>
     </div>
   );
 }
