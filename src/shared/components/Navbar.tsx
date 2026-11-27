@@ -17,10 +17,10 @@ export default function Navbar() {
         <Navigate />
       </div>
 
-      <div className="flex flex-1 items-center justify-end gap-6">
+      <div className="flex flex-1 items-center justify-end gap-1">
         <SearchNavbar />
 
-        <div className="flex shrink-0 items-center gap-5">
+        <div className="flex shrink-0 items-center gap-1">
           <Notifications />
           <Profile />
         </div>

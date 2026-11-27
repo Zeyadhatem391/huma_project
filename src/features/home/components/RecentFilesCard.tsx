@@ -1,16 +1,15 @@
 import { Download, FileText } from "lucide-react";
 import Link from "next/link";
-import { DashboardRecentFiles } from "../types/home";
+import { scrollbarClass } from "@/shared/utils/scrollbar";
+import { DashboardRecentFiles } from "../api/getAllDataDashboard";
 
 export default function RecentFilesCard({
   data,
 }: {
   data: DashboardRecentFiles;
 }) {
-  const files = data.items.slice(0, 3);
-
   return (
-    <div className="w-full rounded-2xl border bg-white pt-5 shadow-sm space-y-5">
+    <div className="group w-full space-y-5 rounded-2xl border bg-white pt-5 shadow-sm">
       <div className="flex w-full items-center justify-between px-5">
         <h2 className="text-xl font-bold text-gray-900">Recent Files</h2>
 
@@ -22,11 +21,11 @@ export default function RecentFilesCard({
         </Link>
       </div>
 
-      <div className="w-full">
-        {files.map((file) => (
+      <div className={`mr-1.5 h-[300px] ${scrollbarClass}`}>
+        {data.items.map((file) => (
           <div
             key={file.id}
-            className="flex w-full min-w-0 items-center justify-between gap-3 border-y border-gray-200 px-3 py-5 transition hover:border-blue-200 hover:shadow-sm"
+            className="flex w-full min-w-0 items-center justify-between gap-3 border-y border-gray-200 py-5 pl-3 pr-1.5 transition hover:border-blue-200 hover:shadow-sm"
           >
             <div className="flex min-w-0 items-center gap-3">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">

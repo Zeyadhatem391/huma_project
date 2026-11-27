@@ -15,7 +15,7 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { ChevronDown, LogOut, UserRound } from "lucide-react";
+import { ChevronDown, LogOut, Pencil, UserRound } from "lucide-react";
 import { logoutUser } from "@/shared/api/logout";
 import { toast } from "sonner";
 
@@ -120,6 +120,13 @@ export default function ProfileDropdown({ user }: Props) {
           <Link href="/dashboard/profile">
             <UserRound className="mr-2 size-4" />
             Profile
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem asChild className="cursor-pointer rounded-lg py-2.5">
+          <Link href="/dashboard/profile/edit">
+            <Pencil className="mr-2 size-4" />
+            Edit Profile
           </Link>
         </DropdownMenuItem>
 

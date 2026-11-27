@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { ProjectOverview } from "../../types/project";
+import { ProjectOverview } from "../../api/getProjectOverview";
 
 export default function ProjectOverTeams({
   project,

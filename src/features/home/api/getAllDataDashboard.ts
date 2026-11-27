@@ -1,7 +1,9 @@
 import Cookies from "js-cookie";
-import { DashboardResponse } from "../types/home";
+import { paths } from "@/schema/api";
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+type DashboardResponse = paths["/api/v1/dashboard"]["get"]["responses"]["200"]["content"]["application/json"]
 
 export default async function getAllDataDashboard(): Promise<DashboardResponse> {
     const token = Cookies.get("token");
@@ -21,3 +23,17 @@ export default async function getAllDataDashboard(): Promise<DashboardResponse> 
 
     return response.json();
 }
+
+export type DashboardActiveProject = DashboardResponse["data"]["active_projects"]
+
+export type DashboardOverview = DashboardResponse["data"]["overview"]
+
+export type ProjectOverviewChart = DashboardResponse["data"]["project_overview"]
+
+export type DashboardTasksType = DashboardResponse["data"]["tasks"]
+
+export type DashboardTeams = DashboardResponse["data"]["teams"]
+
+export type DashboardRecentFiles = DashboardResponse["data"]["recent_files"]
+
+export type DashboardUpcomingMeetings = DashboardResponse["data"]["upcoming_meetings"]

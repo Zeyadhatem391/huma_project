@@ -1,6 +1,6 @@
 import { ClipboardList, MoveUpRight } from "lucide-react";
 import StatisticsCard from "./StatisticsCard";
-import { DashboardOverview } from "../types/home";
+import { DashboardOverview } from "../api/getAllDataDashboard";
 
 export default function CardDashboard({ data }: { data: DashboardOverview }) {
   const stats = data.tasks;

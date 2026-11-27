@@ -1,35 +1,13 @@
+import { paths } from "@/schema/api";
 import Cookies from "js-cookie";
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+type ProjectTeamResponse = paths["/api/v1/projects/18/teams"]["get"]["responses"]["200"]["content"]["application/json"]
 
-export interface ProjectTeamMember {
-    id: number;
-    name: string;
-    avatar_url: string | null;
-    role_in_team: string;
-    is_leader: boolean;
-    tasks_completed: number;
-    tasks_total: number;
-    tasks_ratio: string;
-    progress_percentage: number;
-}
+export type ProjectTeam = ProjectTeamResponse["data"][number];
 
-export interface ProjectTeam {
-    id: number;
-    name: string;
-    completion_percentage: number;
-    total_tasks: number;
-    completed_tasks: number;
-    members: ProjectTeamMember[];
-}
-
-export interface ProjectTeamResponse {
-    success: boolean;
-    message: string;
-    data: ProjectTeam[];
-}
-
+export type ProjectTeamMember = ProjectTeam["members"][number];
 
 export default async function getProjectTeams(
     projectId: number,

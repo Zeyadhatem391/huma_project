@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 
-import ProjectTasks from "./ProjectTasks";
-import ProjectFiles from "./ProjectFiles";
+import ProjectTasks from "./tasks/ProjectTasks";
+import ProjectFiles from "./files/ProjectFiles";
 import ProjectTeams from "./teams/ProjectTeams";
 import { Tab, tabs } from "../data/projects";
-import { ProjectOverview } from "../types/project";
 import ProjectOverviews from "./overview/ProjectOverviews";
+import { ProjectOverview } from "../api/getProjectOverview";
 
 export default function TabsProject({ project }: { project: ProjectOverview }) {
   const [activeTab, setActiveTab] = useState<Tab>("overview");
@@ -39,9 +39,9 @@ export default function TabsProject({ project }: { project: ProjectOverview }) {
 
       <div>
         {activeTab === "overview" && <ProjectOverviews project={project} />}
-        {activeTab === "tasks" && <ProjectTasks />}
-        {activeTab === "teams" && <ProjectTeams id={project.id}/>}
-        {activeTab === "files" && <ProjectFiles />}
+        {activeTab === "tasks" && <ProjectTasks id={project.id} />}
+        {activeTab === "teams" && <ProjectTeams id={project.id} />}
+        {activeTab === "files" && <ProjectFiles id={project.id} />}
       </div>
     </div>
   );

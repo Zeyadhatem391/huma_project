@@ -1,5 +1,5 @@
 import GrowthChart from "@/features/projects/components/overview/GrowthChart";
-import { ProjectOverviewChart } from "../types/home";
+import { ProjectOverviewChart } from "../api/getAllDataDashboard";
 
 function DashboardCharts({ project }: { project: ProjectOverviewChart }) {
   return (

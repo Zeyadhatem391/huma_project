@@ -1,5 +1,4 @@
-import LoginForm from "@/features/login/components/LoginForm";
-import RegisterForm from "@/features/register/components/RegisterForm";
+import RegisterForm from "@/features/auth/register/components/RegisterForm";
 import ButtonGoogleSign from "@/shared/components/auth/ButtonGoogleSign";
 import Link from "next/link";
 

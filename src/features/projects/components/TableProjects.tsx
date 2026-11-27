@@ -2,11 +2,11 @@
 
 import DataTable from "@/shared/components/data-table/DataTable";
 import { projectColumns } from "../data/projects";
-import { Project } from "../types/project";
-import ProjectTableSkeleton from "../skeletons/ProjectTableSkeleton";
+import ProjectTableSkeleton from "../../../shared/skeleton/ProjectTableSkeleton";
+import { Projects } from "../api/getAllProjects";
 
 interface TableProjectsProps {
-  project: Project[];
+  project: Projects[];
   isLoading: boolean;
   isError: boolean;
   error: Error | null;

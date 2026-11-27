@@ -1,6 +1,7 @@
 "use client";
 
-import { ProjectOverview } from "../../types/project";
+import { ProjectOverview } from "../../api/getProjectOverview";
+
 
 interface ProjectProgressProps {
   project: ProjectOverview;

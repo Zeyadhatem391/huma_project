@@ -74,13 +74,19 @@ export default function AddProject() {
 
   const onSubmit = async (data: AddProjectOutput) => {
     try {
-      const result = await addProject(data);
+      const result = {
+        ...data,
+        description: data.description ?? "",
+      };
+
+      await addProject(result);
 
       toast.success("Project created successfully");
 
       await queryClient.invalidateQueries({
         queryKey: ["projects"],
       });
+
       reset();
       setOpen(false);
     } catch (error) {
@@ -207,10 +213,11 @@ export default function AddProject() {
                       <SelectValue placeholder="Select status" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Not Started">Not Started</SelectItem>
+                      <SelectItem value="Pending">Pending</SelectItem>
                       <SelectItem value="In Progress">In Progress</SelectItem>
                       <SelectItem value="Completed">Completed</SelectItem>
                       <SelectItem value="On Hold">On Hold</SelectItem>
+                      <SelectItem value="Cancelled">Cancelled</SelectItem>
                     </SelectContent>
                   </Select>
                 )}

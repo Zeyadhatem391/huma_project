@@ -28,28 +28,33 @@ import {
 import { Plus } from "lucide-react";
 
 import { AddTaskInput, AddTaskOutput, TaskSchema } from "../schema/TaskSchema";
+import useGetAllProjects from "@/features/projects/hook/useGetAllProjects";
+import useTeams from "@/shared/hook/useTeams";
+import useUser from "@/shared/hook/useUser";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import addTask from "../api/addTask";
 
-// Temporary data - Replace with API data
-const projectsData = [
-  { id: 1, name: "Alpha AI Platform" },
-  { id: 2, name: "E-Commerce Website" },
-  { id: 3, name: "Portfolio Website" },
-];
+interface AddTaskTriggerProps {
+  children?: React.ReactNode;
+}
 
-const teamsData = [
-  { id: 1, name: "Frontend Team" },
-  { id: 2, name: "Backend Team" },
-  { id: 3, name: "AI Team" },
-];
-
-const membersData = [
-  { id: 3, name: "Ahmed Mohamed" },
-  { id: 4, name: "Omar Ali" },
-  { id: 5, name: "Zeyad Hatem" },
-];
-
-export default function AddTask() {
+export default function AddTask({ children }: AddTaskTriggerProps) {
   const [open, setOpen] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  const { data: projecData } = useGetAllProjects();
+
+  const projects = projecData?.data.data ?? [];
+
+  const { data: teamData } = useTeams();
+
+  const teams = teamData?.data.data ?? [];
+
+  const { data: userData } = useUser();
+
+  const users = userData?.data ?? [];
 
   const {
     register,
@@ -74,22 +79,37 @@ export default function AddTask() {
 
   const onSubmit = async (data: AddTaskOutput) => {
     try {
-      console.log(data);
+      const result = await addTask(data);
 
+      toast.success("Task created successfully");
+
+      await queryClient.invalidateQueries({
+        queryKey: ["tasks"],
+      });
       reset();
       setOpen(false);
     } catch (error) {
-      console.error("Create task failed:", error);
+      if (error instanceof Error) {
+        toast.error(
+          error.message === "This action is unauthorized."
+            ? "You don't have permission to create Task."
+            : error.message,
+        );
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="flex gap-1 bg-blue-700 rounded-2xl h-10 px-4 cursor-pointer text-white hover:bg-blue-800">
-          <span>Add Task</span>
-          <Plus />
-        </Button>
+        {children ?? (
+          <Button className="flex h-10 cursor-pointer gap-1 rounded-2xl bg-blue-700 px-4 text-white hover:bg-blue-800">
+            <span>Add Task</span>
+            <Plus />
+          </Button>
+        )}
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[550px] max-h-[90vh] overflow-y-auto">
@@ -142,7 +162,7 @@ export default function AddTask() {
                       <SelectValue placeholder="Select project" />
                     </SelectTrigger>
                     <SelectContent>
-                      {projectsData.map((project) => (
+                      {projects.map((project) => (
                         <SelectItem key={project.id} value={String(project.id)}>
                           {project.name}
                         </SelectItem>
@@ -172,7 +192,7 @@ export default function AddTask() {
                       <SelectValue placeholder="Select team" />
                     </SelectTrigger>
                     <SelectContent>
-                      {teamsData.map((team) => (
+                      {teams.map((team) => (
                         <SelectItem key={team.id} value={String(team.id)}>
                           {team.name}
                         </SelectItem>
@@ -201,7 +221,7 @@ export default function AddTask() {
                     <SelectValue placeholder="Select member" />
                   </SelectTrigger>
                   <SelectContent>
-                    {membersData.map((member) => (
+                    {users.map((member) => (
                       <SelectItem key={member.id} value={String(member.id)}>
                         {member.name}
                       </SelectItem>
@@ -252,8 +272,8 @@ export default function AddTask() {
                     <SelectContent>
                       <SelectItem value="Pending">Pending</SelectItem>
                       <SelectItem value="In Progress">In Progress</SelectItem>
+                      <SelectItem value="In Review">In Review</SelectItem>
                       <SelectItem value="Completed">Completed</SelectItem>
-                      <SelectItem value="Cancelled">Cancelled</SelectItem>
                     </SelectContent>
                   </Select>
                 )}
