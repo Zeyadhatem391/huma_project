@@ -4262,20 +4262,159 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": Record<string, never>;
+                        "application/json": {
+                            success: boolean;
+                            message: string;
+                            data: {
+                                data: {
+                                    id: number;
+                                    project_id: number;
+                                    message: string;
+                                    is_edited: boolean;
+                                    sender: {
+                                        id: number;
+                                        name: string;
+                                        email: string;
+                                        avatar_url: string | null;
+                                        job_title: string;
+                                    };
+                                    parent: {
+                                        id: number;
+                                        message: string;
+                                        sender_name: string;
+                                    };
+                                    attachment: {
+                                        id: number;
+                                        name: string;
+                                        mime_type: string;
+                                        file_size: number;
+                                        url: string;
+                                    } | null;
+                                    mentions: {
+                                        id: number;
+                                        name: string;
+                                        email: string;
+                                    }[];
+                                    is_read_by_me: boolean;
+                                    readers_count: number;
+                                    created_at: string;
+                                    updated_at: string;
+                                }[];
+                                links: {
+                                    first: string;
+                                    last: string;
+                                    prev: null;
+                                    next: string;
+                                };
+                                meta: {
+                                    current_page: number;
+                                    from: number;
+                                    last_page: number;
+                                    links: {
+                                        url: string | null;
+                                        label: string;
+                                        page: number | null;
+                                        active: boolean;
+                                    }[];
+                                    path: string;
+                                    per_page: number;
+                                    to: number;
+                                    total: number;
+                                };
+                            };
+                        };
                     };
                 };
             };
         };
         put?: never;
-        post?: never;
+        /**
+         * Send Message (with Mentions & Attachment)
+         * @description Broadcast and store a new chat message in the project stream. Instantly broadcasts via WebSockets (`Laravel Reverb`) to `private-projects.{id}` channel and generates notifications for mentioned users.
+         *
+         *     ### Request Body:
+         *     - `message` (string, required)
+         *     - `parent_id` (integer, optional): Reply to a specific thread message
+         *     - `file_attachment_id` (integer, optional): Attach an existing uploaded file
+         *     - `mentions` (array, optional): User IDs tagged with @mention
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header: {
+                    /** @example application/json */
+                    Accept: string;
+                    /** @example application/json */
+                    "Content-Type": string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    /**
+                     * @example {
+                     *       "message": "Hey @Ahmed, please review the latest sprint deliverables.",
+                     *       "parent_id": null,
+                     *       "file_attachment_id": null,
+                     *       "mentions": [
+                     *         1
+                     *       ]
+                     *     }
+                     */
+                    "application/json": {
+                        message: string;
+                        parent_id: null;
+                        file_attachment_id: null;
+                        mentions: number[];
+                    };
+                };
+            };
+            responses: {
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            success: boolean;
+                            message: string;
+                            data: {
+                                id: number;
+                                project_id: number;
+                                message: string;
+                                is_edited: boolean;
+                                sender: {
+                                    id: number;
+                                    name: string;
+                                    email: string;
+                                    avatar_url: string;
+                                    job_title: string;
+                                };
+                                parent: null;
+                                attachment: null;
+                                mentions: {
+                                    id?: number;
+                                    name?: string;
+                                    email?: string;
+                                }[];
+                                is_read_by_me: boolean;
+                                readers_count: number;
+                                created_at: string;
+                                updated_at: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/base_url/api/v1/projects/1/messages": {
+    "/api/v1/projects/816/messages": {
         parameters: {
             query?: never;
             header?: never;
@@ -4341,32 +4480,7 @@ export interface paths {
         get?: never;
         put?: never;
         post?: never;
-        /**
-         * Delete Message
-         * @description Delete a message from the project chat stream.
-         */
-        delete: {
-            parameters: {
-                query?: never;
-                header: {
-                    /** @example application/json */
-                    Accept: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": Record<string, never>;
-                    };
-                };
-            };
-        };
+        delete?: never;
         options?: never;
         head?: never;
         /**
@@ -4408,6 +4522,51 @@ export interface paths {
                 };
             };
         };
+        trace?: never;
+    };
+    "/api/v1/messages/816": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Message
+         * @description Delete a message from the project chat stream.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header: {
+                    /** @example application/json */
+                    Accept: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            success: boolean;
+                            message: string;
+                            data: null;
+                        };
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
         trace?: never;
     };
     "/base_url/api/v1/projects/1/messages/mark-read": {
@@ -4913,7 +5072,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/base_url/api/v1/ai/ask": {
+    "/api/v1/ai/ask": {
         parameters: {
             query?: never;
             header?: never;
@@ -4956,7 +5115,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": Record<string, never>;
+                        "application/json": {
+                            success: boolean;
+                            data: {
+                                query: string;
+                                answer: string;
+                                project_id: null;
+                                context_summary: {
+                                    projects_count: number;
+                                    tasks_count: number;
+                                    overdue_tasks_count: number;
+                                    upcoming_meetings_count: number;
+                                };
+                                suggested_actions: string[];
+                                source: string;
+                                model: string;
+                                tokens_used: number;
+                            };
+                        };
                     };
                 };
             };

@@ -3,10 +3,11 @@ import { paths } from "@/schema/api";
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 
-type RegisterPayload = paths["/api/v1/auth/register"]["post"]["requestBody"]
+type RegisterPayload = NonNullable<
+    paths["/api/v1/auth/register"]["post"]["requestBody"]
+>["content"]["application/json"];
 
 type RegisterResponse = paths["/api/v1/auth/register"]["post"]["responses"]["201"]["content"]["application/json"]
-
 
 export async function registerUser(
     data: RegisterPayload

@@ -2,29 +2,37 @@
 
 import AddTask from "@/features/tasks/components/AddTask";
 import TaskStatus from "@/features/tasks/components/TaskStatus";
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import SearchTask from "@/features/tasks/components/SearchTask";
 import FilterTask from "@/features/tasks/components/FilterTask";
 
-export default function page() {
+import { useEffect, useState, Suspense } from "react";
+import Cookies from "js-cookie";
+import KanbanBoardSkeleton from "@/shared/skeleton/KanbanBoardSkeleton";
+
+export default function Page() {
   const [isAdministrator, setIsAdministrator] = useState(false);
 
   useEffect(() => {
     const roles = JSON.parse(Cookies.get("roles") || "[]");
     setIsAdministrator(roles.includes("Administrator"));
   }, []);
+
   return (
     <div className="space-y-5">
-      <div className="flex justify-between items-center">
-        <div className="flex gap-4 items-center">
-          <SearchTask />
+      <Suspense fallback={<div className="h-10" />}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <SearchTask />
+            <FilterTask />
+          </div>
 
-          <FilterTask />
+          {isAdministrator && <AddTask />}
         </div>
-        {isAdministrator && <AddTask />}
-      </div>
-      <TaskStatus />
+      </Suspense>
+
+      <Suspense fallback={<KanbanBoardSkeleton />}>
+        <TaskStatus />
+      </Suspense>
     </div>
   );
 }

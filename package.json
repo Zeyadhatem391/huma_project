@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "generate:types": "openapi-typescript \"http://127.0.0.1:3658/export/openapi/3?version=3.0\" -o ./src/schema/api.ts",
+    "generate:types": "openapi-typescript \"http://127.0.0.1:3658/export/openapi/4?version=3.0\" -o ./src/schema/api.ts",
     "lint": "eslint"
   },
   "dependencies": {
