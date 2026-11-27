@@ -30,9 +30,8 @@ export default function DashboardTasksCard({
 
       <div className={`mr-1.5 h-[300px] space-y-2 pr-2 ${scrollbarClass}`}>
         {data.items.map((task) => (
-          <Link
+          <div
             key={task.id}
-            href={`/dashboard/tasks/${task.id}`}
             className="block space-y-2 rounded-xl border border-gray-200 p-3 transition hover:border-blue-300 hover:bg-blue-50/30 hover:shadow-sm"
           >
             <div className="flex items-center justify-between gap-3">
@@ -60,7 +59,7 @@ export default function DashboardTasksCard({
                 style={{ width: `20%` }}
               />
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>

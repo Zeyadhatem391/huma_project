@@ -26,7 +26,6 @@ export default function DashboardLayout({ children }: Props) {
 
       <div className="hidden min-h-screen w-full flex-col bg-gray-200/40 lg:flex">
         <Navbar />
-
         <main className="w-full flex-1 px-14 py-10">{children}</main>
       </div>
     </>

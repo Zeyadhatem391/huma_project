@@ -1,7 +1,7 @@
-import { Download, FileText } from "lucide-react";
-import Link from "next/link";
+import { Download } from "lucide-react";
 import { scrollbarClass } from "@/shared/utils/scrollbar";
 import { DashboardRecentFiles } from "../api/getAllDataDashboard";
+import { FaFilePdf } from "react-icons/fa";
 
 export default function RecentFilesCard({
   data,
@@ -10,15 +10,8 @@ export default function RecentFilesCard({
 }) {
   return (
     <div className="group w-full space-y-5 rounded-2xl border bg-white pt-5 shadow-sm">
-      <div className="flex w-full items-center justify-between px-5">
+      <div className="px-5">
         <h2 className="text-xl font-bold text-gray-900">Recent Files</h2>
-
-        <Link
-          href="/dashboard/files"
-          className="flex items-center gap-1 text-sm font-medium text-blue-600 transition-colors hover:text-blue-700"
-        >
-          View All
-        </Link>
       </div>
 
       <div className={`mr-1.5 h-[300px] ${scrollbarClass}`}>
@@ -28,8 +21,8 @@ export default function RecentFilesCard({
             className="flex w-full min-w-0 items-center justify-between gap-3 border-y border-gray-200 py-5 pl-3 pr-1.5 transition hover:border-blue-200 hover:shadow-sm"
           >
             <div className="flex min-w-0 items-center gap-3">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-                <FileText size={23} />
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                <FaFilePdf size={23} />
               </div>
 
               <div className="min-w-0 space-y-1">
@@ -46,7 +39,7 @@ export default function RecentFilesCard({
               </div>
             </div>
 
-            <button className="shrink-0 rounded-lg p-2 text-gray-400 transition hover:bg-blue-50 hover:text-blue-600">
+            <button className="shrink-0 rounded-lg p-2 text-gray-400 transition hover:bg-red-50 hover:text-red-600 cursor-pointer">
               <Download size={20} />
             </button>
           </div>

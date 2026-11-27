@@ -2,7 +2,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { formatDate } from "@/shared/utils/formatDate";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Briefcase, File, Pencil } from "lucide-react";
-import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch-link";
 import DeleteProjectButton from "../components/DeleteProjectButton";
 import {
   Priority,
@@ -11,6 +10,7 @@ import {
   statusStyles,
 } from "@/shared/types/types";
 import { Projects } from "../api/getAllProjects";
+import UpdateProject from "../components/UpdateProject";
 
 export const projectColumns: ColumnDef<Projects>[] = [
   {
@@ -130,11 +130,7 @@ export const projectColumns: ColumnDef<Projects>[] = [
           onClick={(e) => e.stopPropagation()}
           onMouseDown={(e) => e.stopPropagation()}
         >
-          <HoverPrefetchLink href={`/dashboard/projects/${action.id}/update`}>
-            <button className="cursor-pointer rounded-md text-blue-500">
-              <Pencil size={15} />
-            </button>
-          </HoverPrefetchLink>
+          <UpdateProject project={action}/>
 
           <DeleteProjectButton projectId={action.id} />
         </div>
