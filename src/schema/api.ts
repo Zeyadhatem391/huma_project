@@ -2271,7 +2271,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/base_url/api/v1/projects/1": {
+    "/api/v1/projects/18": {
         parameters: {
             query?: never;
             header?: never;
@@ -2299,9 +2299,12 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "name": "Alpha AI Platform v2",
+                     *       "name": "Performance Optimization Sprint",
+                     *       "start_date": "2026-10-15",
+                     *       "description": "Cut p95 API latency in half and fix the slowest dashboard queries.",
+                     *       "status": "In Progress",
                      *       "priority": "High",
-                     *       "status": "In Progress"
+                     *       "deadline": "2026-11-16"
                      *     }
                      */
                     "application/json": {
@@ -2317,7 +2320,141 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": Record<string, never>;
+                        "application/json": {
+                            success: boolean;
+                            message: string;
+                            data: {
+                                id: number;
+                                name: string;
+                                description: string;
+                                status: string;
+                                priority: string;
+                                progress_percentage: number;
+                                due_date_indicator: {
+                                    start_date: string;
+                                    deadline: string;
+                                    total_days: number;
+                                    days_remaining: number;
+                                    is_overdue: boolean;
+                                };
+                                tasks_statistics: {
+                                    total: number;
+                                    pending: number;
+                                    in_progress: number;
+                                    in_review: number;
+                                    completed: number;
+                                    completion_rate: number;
+                                    pending_percentage: number;
+                                    in_progress_percentage: number;
+                                    in_review_percentage: number;
+                                    completed_percentage: number;
+                                };
+                                counts: {
+                                    files: number;
+                                    meetings: number;
+                                    messages: number;
+                                    teams: number;
+                                    direct_members: number;
+                                };
+                                teams: {
+                                    id: number;
+                                    name: string;
+                                    description: string;
+                                    created_by: number;
+                                    members_count: number;
+                                    active_projects_count: number;
+                                    created_at: string;
+                                    updated_at: string;
+                                }[];
+                                direct_members: {
+                                    id: number;
+                                    name: string;
+                                    email: string;
+                                    avatar_url: string | null;
+                                    job_title: string;
+                                    role: string;
+                                }[];
+                                created_by: number;
+                                creator: {
+                                    id: number;
+                                    name: string;
+                                    email: string;
+                                };
+                                created_at: string;
+                                updated_at: string;
+                            };
+                        };
+                    };
+                };
+                "x-200-2": {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            success: boolean;
+                            message: string;
+                            data: {
+                                id: number;
+                                name: string;
+                                description: string;
+                                status: string;
+                                priority: string;
+                                progress_percentage: number;
+                                due_date_indicator: {
+                                    start_date: string;
+                                    deadline: string;
+                                    total_days: number;
+                                    days_remaining: number;
+                                    is_overdue: boolean;
+                                };
+                                tasks_statistics: {
+                                    total: number;
+                                    pending: number;
+                                    in_progress: number;
+                                    in_review: number;
+                                    completed: number;
+                                    completion_rate: number;
+                                    pending_percentage: number;
+                                    in_progress_percentage: number;
+                                    in_review_percentage: number;
+                                    completed_percentage: number;
+                                };
+                                counts: {
+                                    files: number;
+                                    meetings: number;
+                                    messages: number;
+                                    teams: number;
+                                    direct_members: number;
+                                };
+                                teams: {
+                                    id: number;
+                                    name: string;
+                                    description: string;
+                                    created_by: number;
+                                    members_count: number;
+                                    active_projects_count: number;
+                                    created_at: string;
+                                    updated_at: string;
+                                }[];
+                                direct_members: {
+                                    id: number;
+                                    name: string;
+                                    email: string;
+                                    avatar_url: string | null;
+                                    job_title: string;
+                                    role: string;
+                                }[];
+                                created_by: number;
+                                creator: {
+                                    id: number;
+                                    name: string;
+                                    email: string;
+                                };
+                                created_at: string;
+                                updated_at: string;
+                            };
+                        };
                     };
                 };
             };
@@ -2958,6 +3095,22 @@ export interface paths {
                 };
             };
         };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/tasks/408": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
         /**
          * Update Task
          * @description Update full task properties including assignment, priority, and dates.
@@ -2978,8 +3131,6 @@ export interface paths {
                 content: {
                     /**
                      * @example {
-                     *       "name": "Implement WebSocket Event Broadcasting (Updated)",
-                     *       "priority": "Critical",
                      *       "status": "In Progress"
                      *     }
                      */
@@ -2996,7 +3147,38 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": Record<string, never>;
+                        "application/json": {
+                            success: boolean;
+                            message: string;
+                            data: {
+                                id: number;
+                                name: string;
+                                description: string;
+                                priority: string;
+                                status: string;
+                                due_date: string;
+                                completed_at: null;
+                                hours_spent: number;
+                                project_id: number;
+                                team_id: null;
+                                assigned_to: null;
+                                created_by: number;
+                                project: {
+                                    id: number;
+                                    name: string;
+                                };
+                                team: null;
+                                assignee: null;
+                                creator: {
+                                    id: number;
+                                    name: string;
+                                    email: string;
+                                };
+                                attachments_count: number;
+                                created_at: string;
+                                updated_at: string;
+                            };
+                        };
                     };
                 };
             };
@@ -4193,7 +4375,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/base_url/api/v1/files/1/download": {
+    "/api/v1/files/%20161/download": {
         parameters: {
             query?: never;
             header?: never;

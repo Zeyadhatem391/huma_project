@@ -86,21 +86,3 @@ export const tabs = [
 
 export type Tab = (typeof tabs)[number]["id"];
 
-
-// export type Priority = "low" | "medium" | "high" | "critical";
-
-// export type TaskStatus =
-//   | "To-do"
-//   | "In Progress"
-//   | "In Review"
-//   | "Completed Tasks";
-
-
-
-// const priorityColors = {
-//   low: "bg-green-100 text-green-700",
-//   medium: "bg-yellow-100 text-yellow-700",
-//   high: "bg-orange-100 text-orange-700",
-//   critical: "bg-red-100 text-red-700",
-// }; //DashboardTasksCard
-

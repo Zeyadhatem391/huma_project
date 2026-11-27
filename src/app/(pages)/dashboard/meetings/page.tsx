@@ -1,5 +1,4 @@
 import AddMeeting from "@/features/meetings/components/AddMeeting";
-import FilterMeeting from "@/features/meetings/components/FilterMeeting";
 import MeetingsGrid from "@/features/meetings/components/MeetingsGrid";
 import MonthMeeting from "@/features/meetings/components/MonthMeeting";
 
@@ -11,10 +10,7 @@ export default function page() {
         <AddMeeting />
       </div>
 
-      <div className="flex justify-between items-center">
-        <MonthMeeting />
-        <FilterMeeting />
-      </div>
+      <MonthMeeting />
 
       <MeetingsGrid />
     </div>

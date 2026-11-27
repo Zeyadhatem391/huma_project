@@ -39,9 +39,10 @@ export default function ActiveProjectsCard({
           const progress = Math.min(100, Math.max(0, project.progress));
 
           return (
-            <div
+            <Link
               key={project.id}
-              className="space-y-3 rounded-xl border border-gray-200 p-3 transition-colors hover:border-gray-300"
+              href={`dashboard/projects/${project.id}`}
+              className="block space-y-3 rounded-xl border border-gray-200 p-3 transition-colors hover:border-gray-300"
             >
               <div className="flex items-center gap-3">
                 <div className={`rounded-full p-2.5 ${colors.icon}`}>
@@ -64,7 +65,7 @@ export default function ActiveProjectsCard({
                   {project.tasks_total ?? 0}
                 </span>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
